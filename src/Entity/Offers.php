@@ -40,9 +40,19 @@ class Offers
     #[ORM\ManyToMany(targetEntity: Civility::class, mappedBy: 'offers')]
     private Collection $civilities;
 
+    #[ORM\ManyToOne(inversedBy: 'offers')]
+    private ?ContractType $contractTypes = null;
+
+    #[ORM\ManyToOne(inversedBy: 'offers')]
+    private ?Client $clients = null;
+
+    #[ORM\ManyToMany(targetEntity: Activity::class, mappedBy: 'offers')]
+    private Collection $activities;
+
     public function __construct()
     {
         $this->civilities = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,6 +166,57 @@ class Offers
     {
         if ($this->civilities->removeElement($civility)) {
             $civility->removeOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function getContractTypes(): ?ContractType
+    {
+        return $this->contractTypes;
+    }
+
+    public function setContractTypes(?ContractType $contractTypes): self
+    {
+        $this->contractTypes = $contractTypes;
+
+        return $this;
+    }
+
+    public function getClients(): ?Client
+    {
+        return $this->clients;
+    }
+
+    public function setClients(?Client $clients): self
+    {
+        $this->clients = $clients;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Activity>
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities->add($activity);
+            $activity->addOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        if ($this->activities->removeElement($activity)) {
+            $activity->removeOffer($this);
         }
 
         return $this;
