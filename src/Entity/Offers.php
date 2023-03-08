@@ -9,41 +9,45 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OffersRepository::class)]
+#[ORM\Table(name: "Offers")]
 class Offers
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'Identifier')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Label")]
     private ?string $label = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Reference")]
     private ?string $reference = null;
 
-    #[ORM\Column(length: 3000)]
+    #[ORM\Column(length: 3000, name:"Description")]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: "ParutionDateTime")]
     private ?\DateTimeInterface $parutionDateTime = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: "OfferStartDate")]
     private ?\DateTimeInterface $offerStartDate = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: "OfferEndDate")]
     private ?\DateTimeInterface $offerEndDate = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Localisation")]
     private ?string $localisation = null;
+
 
     #[ORM\ManyToMany(targetEntity: Civility::class, mappedBy: 'offers')]
     private Collection $civilities;
 
     #[ORM\ManyToOne(inversedBy: 'offers')]
+    #[ORM\JoinColumn(name: 'IdentifierContractType', referencedColumnName: 'Identifier', nullable: false)]
     private ?ContractType $contractTypes = null;
 
     #[ORM\ManyToOne(inversedBy: 'offers')]
+    #[ORM\JoinColumn(name: 'IdentifierClient', referencedColumnName: 'Identifier', nullable: false)]
     private ?Client $clients = null;
 
     #[ORM\ManyToMany(targetEntity: Activity::class, mappedBy: 'offers')]

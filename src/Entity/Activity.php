@@ -8,20 +8,25 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
+#[ORM\Table(name: "Activity")]
 class Activity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'Identifier')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Name")]
     private ?string $name = null;
 
+    #[ORM\JoinTable(name: 'ActivityOffer')]
+    #[ORM\JoinColumn(name: 'IdentifierOffer', referencedColumnName: 'Identifier')]
+    #[ORM\InverseJoinColumn(name: 'IdentifierActivity', referencedColumnName: 'Identifier')]
     #[ORM\ManyToMany(targetEntity: Offers::class, inversedBy: 'activities')]
     private Collection $offers;
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
+    #[ORM\JoinColumn(name: 'IdentifierActivityDomain', referencedColumnName: 'Identifier', nullable: false)]
     private ?ActivityDomain $activityDomains = null;
 
     public function __construct()

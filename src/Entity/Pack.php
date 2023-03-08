@@ -8,22 +8,26 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PackRepository::class)]
+#[ORM\Table(name: "Pack")]
 class Pack
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'Identifier')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Label")]
     private ?string $label = null;
 
-    #[ORM\Column]
+    #[ORM\Column (name: "OffersNumber")]
     private ?int $offersNumber = null;
 
-    #[ORM\Column]
+    #[ORM\Column (name:"Price")]
     private ?float $price = null;
 
+    #[ORM\JoinTable(name: 'PackClient')]
+    #[ORM\JoinColumn(name: 'IdentifierClient', referencedColumnName: 'Identifier')]
+    #[ORM\InverseJoinColumn(name: 'IdentifierPack', referencedColumnName: 'Identifier')]
     #[ORM\ManyToMany(targetEntity: Client::class, inversedBy: 'packs')]
     private Collection $clients;
 

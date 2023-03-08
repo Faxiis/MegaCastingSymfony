@@ -8,36 +8,38 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
+#[ORM\Table(name: "Client")]
 class Client
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'Identifier')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name: "FirstName")]
     private ?string $firstName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name: "LastName")]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"City")]
     private ?string $city = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Address")]
     private ?string $address = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name: "AddressZipCode")]
     private ?string $addressZipCode = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Email")]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Phone")]
     private ?string $phone = null;
 
     #[ORM\OneToMany(mappedBy: 'clients', targetEntity: Offers::class)]
     private Collection $offers;
+
 
     #[ORM\ManyToMany(targetEntity: Pack::class, mappedBy: 'clients')]
     private Collection $packs;

@@ -6,14 +6,15 @@ use App\Repository\DiffusionPartnerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DiffusionPartnerRepository::class)]
+#[ORM\Table(name: "DiffusionPartner")]
 class DiffusionPartner
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'Identifier')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Name")]
     private ?string $name = null;
 
     public function getId(): ?int

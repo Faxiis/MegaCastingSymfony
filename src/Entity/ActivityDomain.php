@@ -8,17 +8,18 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActivityDomainRepository::class)]
+#[ORM\Table(name: "ActivityDomain")]
 class ActivityDomain
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'Identifier')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name:"Name")]
     private ?string $name = null;
 
-    #[ORM\Column(length: 3000)]
+    #[ORM\Column(length: 3000, name:"Description")]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'activityDomains', targetEntity: Activity::class)]
