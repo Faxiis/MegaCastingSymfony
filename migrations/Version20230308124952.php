@@ -56,16 +56,6 @@ final class Version20230308124952 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA db_accessadmin');
-        $this->addSql('CREATE SCHEMA db_backupoperator');
-        $this->addSql('CREATE SCHEMA db_datareader');
-        $this->addSql('CREATE SCHEMA db_datawriter');
-        $this->addSql('CREATE SCHEMA db_ddladmin');
-        $this->addSql('CREATE SCHEMA db_denydatareader');
-        $this->addSql('CREATE SCHEMA db_denydatawriter');
-        $this->addSql('CREATE SCHEMA db_owner');
-        $this->addSql('CREATE SCHEMA db_securityadmin');
-        $this->addSql('CREATE SCHEMA dbo');
         $this->addSql('ALTER TABLE Activity DROP CONSTRAINT FK_55026B0C62DE144D');
         $this->addSql('ALTER TABLE ActivityOffer DROP CONSTRAINT FK_58848461E116446');
         $this->addSql('ALTER TABLE ActivityOffer DROP CONSTRAINT FK_588484686C5C7B9');

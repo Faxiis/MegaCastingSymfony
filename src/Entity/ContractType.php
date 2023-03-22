@@ -6,6 +6,7 @@ use App\Repository\ContractTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Scalar\String_;
 
 #[ORM\Entity(repositoryClass: ContractTypeRepository::class)]
 #[ORM\Table(name: "ContractType")]
@@ -87,5 +88,10 @@ class ContractType
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->shortLabel;
     }
 }
