@@ -1,8 +1,3 @@
-.bgtest{
-    background-image: url("https://phrnleng.rosselcdn.net/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2021/10/06/node_126671/3121527/public/2021/10/06/B9728566660Z.1_20211006174035_000%2BG28J365VV.1-0.jpg?itok=aboTpDWQ1633534888");
-    background-size: 1525px;
-}
-
 a {
     color: #000000;
     text-decoration: none;
@@ -28,3 +23,13 @@ h1{
     margin-bottom: 50px;
 }
 
+.offerText{
+    text-align: center;
+}
+
+.offerBg{
+    background-image: url("../img/testbg.png");
+    color: white;
+    padding-top: 50px;
+    padding-bottom: 360px;
+}

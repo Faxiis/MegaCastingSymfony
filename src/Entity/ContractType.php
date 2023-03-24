@@ -92,6 +92,6 @@ class ContractType
 
     public function __toString(): string
     {
-        return $this->shortLabel;
+        return $this->label;
     }
 }

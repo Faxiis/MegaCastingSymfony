@@ -39,6 +39,19 @@ class OffersRepository extends ServiceEntityRepository
         }
     }
 
+    public function findSearch($query){
+        return $this->createQueryBuilder('o')
+            ->where('o.label LIKE :query')
+            ->orWhere('o.reference LIKE :query')
+            ->orWhere('o.localisation LIKE :query')
+            //->join('o.activities', 'act')
+            //->orWhere('act.name LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Offers[] Returns an array of Offers objects
 //     */

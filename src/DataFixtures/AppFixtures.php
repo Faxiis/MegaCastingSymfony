@@ -151,6 +151,58 @@ class AppFixtures extends Fixture
         $off->setClients($client);
         $manager->persist($off);
 
+        $off = new Offers();
+        $off->setLabel("Fast and Furious");
+        $off->setReference("Sept");
+        $off->setDescription("Des bagnoles, des filles tout est bon dans le cochon");
+        $off->setParutionDateTime($datedujour);
+        $off->setOfferStartDate($datedujour);
+        $off->setOfferEndDate($datedujour);
+        $off->setLocalisation("7 Weshington Street");
+        $off->setReference("Quarante quatre");
+        $off->setContractTypes($contract);
+        $off->setClients($client);
+        $manager->persist($off);
+
+        $off = new Offers();
+        $off->setLabel("Harry Potter");
+        $off->setReference("Huit");
+        $off->setDescription("Le rôle de Drago Malfoy est vacant");
+        $off->setParutionDateTime($datedujour);
+        $off->setOfferStartDate($datedujour);
+        $off->setOfferEndDate($datedujour);
+        $off->setLocalisation("Los Angeles");
+        $off->setReference("Soixante");
+        $off->setContractTypes($contract);
+        $off->setClients($client);
+        $manager->persist($off);
+
+        $off = new Offers();
+        $off->setLabel("Blue Lock");
+        $off->setReference("Onze");
+        $off->setDescription("Qui sera le prochain Isagi qui sauvera la nation du Japon dans le football");
+        $off->setParutionDateTime($datedujour);
+        $off->setOfferStartDate($datedujour);
+        $off->setOfferEndDate($datedujour);
+        $off->setLocalisation("Japon");
+        $off->setReference("Trente");
+        $off->setContractTypes($contract);
+        $off->setClients($client);
+        $manager->persist($off);
+
+        $off = new Offers();
+        $off->setLabel("Star Wars");
+        $off->setReference("Chewbacca");
+        $off->setDescription("Nous cherchons un Chewbacca");
+        $off->setParutionDateTime($datedujour);
+        $off->setOfferStartDate($datedujour);
+        $off->setOfferEndDate($datedujour);
+        $off->setLocalisation("Las Vegas");
+        $off->setReference("Quarante-cinq");
+        $off->setContractTypes($contract);
+        $off->setClients($client);
+        $manager->persist($off);
+
         $manager->flush();
 
     }

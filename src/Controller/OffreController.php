@@ -17,6 +17,7 @@ class OffreController extends AbstractController
     {
         $offre = $entityManager->getRepository(Offers::class)->find($id);
 
+
         return $this->render('offre/index.html.twig', [
             'offre' => $offre,
         ]);
@@ -81,5 +82,13 @@ class OffreController extends AbstractController
         return $this->render('home/index.html.twig', [
             'offres' => $offres,
         ]);
+    }
+
+    #[Route('/offre/test', name: 'app_offre_test')]
+    public function search(EntityManagerInterface $entityManager): Response
+    {
+        $offers = $entityManager->getRepository(Offers::class)->findSearch('Batteur');
+        dd($offers);
+
     }
 }
