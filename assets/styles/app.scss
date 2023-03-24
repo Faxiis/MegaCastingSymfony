@@ -1,5 +1,6 @@
-body {
-    background-color: lightcyan;
+.bgtest{
+    background-image: url("https://phrnleng.rosselcdn.net/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2021/10/06/node_126671/3121527/public/2021/10/06/B9728566660Z.1_20211006174035_000%2BG28J365VV.1-0.jpg?itok=aboTpDWQ1633534888");
+    background-size: 1525px;
 }
 
 a {
@@ -7,6 +8,23 @@ a {
     text-decoration: none;
 }
 
-.test{
-    background-image: linear-gradient(to right, #b5a7db, #6a54a8);
+.test2{
+    height: 200px;
 }
+
+
+.homeBg{
+    background-image: url("../img/testbg.png");
+    color: white;
+    padding-top: 200px;
+    padding-bottom: 360px;
+}
+
+.homeText{
+    margin-left: 125px;
+}
+
+h1{
+    margin-bottom: 50px;
+}
+
