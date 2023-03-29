@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
+#[ORM\Table(name: '`User`')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -18,7 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 180, unique: true, name: 'Email')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -27,11 +29,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(name: 'Password')]
     private ?string $password = null;
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\Column(length: 255, name:"FirstName")]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 255, name:"LastName")]
+    private ?string $lastName = null;
+
+    #[ORM\Column(length: 255, name:"Phone")]
+    private ?string $phone = null;
+
+    #[ORM\Column(length: 255, name:"Country")]
+    private ?string $country = null;
+
+    #[ORM\Column(length: 255, name:"City")]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 255, name:"Address")]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255 , name:"AddressZipCode")]
+    private ?string $addressZipCode = null;
+
+    #[ORM\JoinTable(name: 'UserOffer')]
+    #[ORM\JoinColumn(name: 'IdentifierOffer', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'IdentifierUser', referencedColumnName: 'Identifier')]
+    #[ORM\ManyToMany(targetEntity: Offers::class, inversedBy: 'users')]
+    private Collection $apply;
+
+    public function __construct()
+    {
+        $this->apply = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,6 +145,114 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getAddressZipCode(): ?string
+    {
+        return $this->addressZipCode;
+    }
+
+    public function setAddressZipCode(string $addressZipCode): self
+    {
+        $this->addressZipCode = $addressZipCode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offers>
+     */
+    public function getApply(): Collection
+    {
+        return $this->apply;
+    }
+
+    public function addApply(Offers $apply): self
+    {
+        if (!$this->apply->contains($apply)) {
+            $this->apply->add($apply);
+        }
+
+        return $this;
+    }
+
+    public function removeApply(Offers $apply): self
+    {
+        $this->apply->removeElement($apply);
 
         return $this;
     }

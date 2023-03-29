@@ -1,24 +1,28 @@
 {# templates/login/index.html.twig #}
 {% extends 'base.html.twig' %}
-
+{% block title %}Connexion{% endblock %}
 {# ... #}
 
 {% block body %}
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-
+<div class="container">
+    <h1 class="text-center mt-5">Se connecter</h1>
     <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password">
-
+        <div class="form-group mb-3">
+        <label for="username" class="mb-2">Email</label>
+        <input type="text" class="form-control" id="username"  name="_username" value="{{ last_username }}">
+        </div>
+        <div class="form-group">
+        <label for="password" class="mb-2">Mot de passe</label>
+        <input type="password" class="form-control" id="password"  name="_password">
+        </div>
         {# If you want to control the URL the user is redirected to on success
         <input type="hidden" name="_target_path" value="/account"> #}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <button type="submit">login</button>
+        <button type="submit" class="btn btn-dark mt-3">Se connecter</button>
     </form>
+</div>
 {% endblock %}

@@ -10,22 +10,25 @@ use App\Entity\ContractType;
 use App\Entity\Offers;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $faker = Faker\Factory::create('fr, FR');
+
         $datedujour = new \DateTime();
 
-        $civilite = new Civility();
-        $civilite->setShortLabel('M.');
-        $civilite->setLongLabel('Monsieur');
-        $manager->persist($civilite);
+        $civilitef = new Civility();
+        $civilitef->setShortLabel('M.');
+        $civilitef->setLongLabel('Monsieur');
+        $manager->persist($civilitef);
 
-        $civilite = new Civility();
-        $civilite->setShortLabel('Mme');
-        $civilite->setLongLabel('Madame');
-        $manager->persist($civilite);
+        $civilitem = new Civility();
+        $civilitem->setShortLabel('Mme');
+        $civilitem->setLongLabel('Madame');
+        $manager->persist($civilitem);
 
 
         $contract = new ContractType();
@@ -49,35 +52,35 @@ class AppFixtures extends Fixture
         $activityDomain->setDescription('Les métiers de la musique');
         $manager->persist($activityDomain);
 
-        $activity = new Activity();
-        $activity->setName('Batteur');
-        $activity->setActivityDomains($activityDomain);
-        $manager->persist($activity);
+        $activityb = new Activity();
+        $activityb->setName('Batteur');
+        $activityb->setActivityDomains($activityDomain);
+        $manager->persist($activityb);
 
-        $activity = new Activity();
-        $activity->setName('Flutiste');
-        $activity->setActivityDomains($activityDomain);
-        $manager->persist($activity);
+        $activityf = new Activity();
+        $activityf->setName('Flutiste');
+        $activityf->setActivityDomains($activityDomain);
+        $manager->persist($activityf);
 
-        $activity = new Activity();
-        $activity->setName('Guitariste');
-        $activity->setActivityDomains($activityDomain);
-        $manager->persist($activity);
+        $activityg = new Activity();
+        $activityg->setName('Guitariste');
+        $activityg->setActivityDomains($activityDomain);
+        $manager->persist($activityg);
 
         $activityDomain = new ActivityDomain();
         $activityDomain->setName('Cinema');
         $activityDomain->setDescription('Les métiers du cinéma');
         $manager->persist($activityDomain);
 
-        $activity = new Activity();
-        $activity->setName('Acteur');
-        $activity->setActivityDomains($activityDomain);
-        $manager->persist($activity);
+        $activitya = new Activity();
+        $activitya->setName('Acteur');
+        $activitya->setActivityDomains($activityDomain);
+        $manager->persist($activitya);
 
-        $activity = new Activity();
-        $activity->setName('Réalisateur');
-        $activity->setActivityDomains($activityDomain);
-        $manager->persist($activity);
+        $activityr = new Activity();
+        $activityr->setName('Réalisateur');
+        $activityr->setActivityDomains($activityDomain);
+        $manager->persist($activityr);
 
         $client = new Client();
         $client->setFirstName("Jean");
@@ -100,6 +103,10 @@ class AppFixtures extends Fixture
         $of->setReference("Douze");
         $of->setContractTypes($contract);
         $of->setClients($client);
+        $of->addCivility($civilitef);
+        $of->addCivility($civilitem);
+        $of->addActivity($activitya);
+        $of->addActivity($activityb);
         $manager->persist($of);
 
         $of = new Offers();
@@ -113,6 +120,8 @@ class AppFixtures extends Fixture
         $of->setReference("Rouge");
         $of->setContractTypes($contract);
         $of->setClients($client);
+        $of->addCivility($civilitem);
+        $of->addActivity($activityf);
         $manager->persist($of);
 
         $client = new Client();
@@ -136,6 +145,10 @@ class AppFixtures extends Fixture
         $of->setReference("Douze");
         $of->setContractTypes($contract);
         $of->setClients($client);
+        $of->addCivility($civilitef);
+        $of->addCivility($civilitem);
+        $of->addActivity($activityf);
+        $of->addActivity($activitya);
         $manager->persist($of);
 
         $off = new Offers();
@@ -149,6 +162,8 @@ class AppFixtures extends Fixture
         $off->setReference("Quarante");
         $off->setContractTypes($contract);
         $off->setClients($client);
+        $off->addCivility($civilitem);
+        $off->addActivity($activitya);
         $manager->persist($off);
 
         $off = new Offers();
@@ -162,6 +177,9 @@ class AppFixtures extends Fixture
         $off->setReference("Quarante quatre");
         $off->setContractTypes($contract);
         $off->setClients($client);
+        $off->addCivility($civilitem);
+        $off->addActivity($activityf);
+        $off->addActivity($activityg);
         $manager->persist($off);
 
         $off = new Offers();
@@ -175,6 +193,8 @@ class AppFixtures extends Fixture
         $off->setReference("Soixante");
         $off->setContractTypes($contract);
         $off->setClients($client);
+        $off->addCivility($civilitef);
+        $off->addActivity($activitya);
         $manager->persist($off);
 
         $off = new Offers();
@@ -188,6 +208,8 @@ class AppFixtures extends Fixture
         $off->setReference("Trente");
         $off->setContractTypes($contract);
         $off->setClients($client);
+        $off->addCivility($civilitef);
+        $off->addActivity($activityb);
         $manager->persist($off);
 
         $off = new Offers();
@@ -201,7 +223,27 @@ class AppFixtures extends Fixture
         $off->setReference("Quarante-cinq");
         $off->setContractTypes($contract);
         $off->setClients($client);
+        $off->addCivility($civilitef);
+        $off->addCivility($civilitem);
+        $off->addActivity($activityg);
         $manager->persist($off);
+
+        for ($i = 1; $i<=500 ; $i++) {
+            $offre = new Offers();
+            $offre->setLabel($faker->name());
+            $offre->setDescription($faker->paragraphs(2, true));
+            $offre->setReference($faker->name());
+            $offre->setParutionDateTime($faker->dateTime());
+            $offre->setOfferStartDate($faker->dateTime());
+            $offre->setOfferEndDate($faker->dateTime());
+            $offre->setLocalisation($faker->name());
+            $offre->setContractTypes($contract);
+            $offre->setClients($client);
+            $offre->addCivility($civilitem);
+            $offre->addActivity($activityg);
+
+            $manager->persist($offre);
+        }
 
         $manager->flush();
 

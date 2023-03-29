@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-black">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">MegaCasting</a>
+        <a class="navbar-brand" href="{{ path('app_home') }}">MegaCasting</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,8 +22,11 @@
                 </li>
                 {% endif %}
                 {% if app.user != null %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_profile') }} "><i class="bi-person" style="font-size: 20px;"></i></a>
+                    </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion  <span class="bi-box-arrow-right"></span></a>
+                    <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi-box-arrow-right fa-6x" style="font-size: 20px;" aria-label="Déconnexion"></i></a>
                 </li>
                 {% endif %}
             </ul>

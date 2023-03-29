@@ -53,10 +53,14 @@ class Offers
     #[ORM\ManyToMany(targetEntity: Activity::class, mappedBy: 'offers')]
     private Collection $activities;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'apply')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->civilities = new ArrayCollection();
         $this->activities = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -221,6 +225,33 @@ class Offers
     {
         if ($this->activities->removeElement($activity)) {
             $activity->removeOffer($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addApply($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeApply($this);
         }
 
         return $this;

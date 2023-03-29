@@ -27,9 +27,15 @@ h1{
     text-align: center;
 }
 
-.offerBg{
-    background-image: url("../img/testbg.png");
-    color: white;
-    padding-top: 50px;
-    padding-bottom: 360px;
+
+
+.truncate {
+    overflow:hidden;
+    line-height: 1.7rem;
+    max-height: 8rem;
+    -webkit-box-orient: vertical;
+    display: block;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
 }

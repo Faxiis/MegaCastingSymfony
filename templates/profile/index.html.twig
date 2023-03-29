@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-3 text-center">{{ app.user.lastName }} {{ app.user.firstName }}</h1>
+
+        <div class="row justify-content-around">
+            <div class="col-4">
+                <h3>Vos informations :</h3><br>
+                <p><b>E-mail</b> : {{ app.user.email }}</p>
+                <p><b>Téléphone</b> : {{ app.user.phone }}</p>
+                <p><b>Pays</b> : {{ app.user.country }}</p>
+                <p><b>Code Postal</b> : {{ app.user.addressZipCode }}</p>
+                <p><b>Ville</b> : {{ app.user.city }}</p>
+                <p><b>Adresse</b> : {{ app.user.address }}</p>
+                <a href="{{ path('app_profile_edit', {'id': app.user.id}) }}"><button class="btn btn-primary" >Modifier mon profil</button></a><br>
+                <a href="{{ path('app_forgot_password_request') }}" ><button class="btn btn-primary mt-3" >Modifier mon mot de passe</button></a>
+            </div>
+            <div class="col-4">
+                <h3 class="mb-4">Vos candidatures :</h3>
+                <ul class="list-group">
+                    {% if candidatures == null %}
+                        <p class="mt-5">Vous n'avez pas encore postulé pour une offre, rendez-vous sur la page d'accueil pour avoir accès à toutes les offres de castings.</p>
+                    {% endif %}
+                    {% for canditature in candidatures %}
+                        <div class="row justify-content-between">
+                            <div class="col-4 mb-3" style="width: 293px">
+                                <a href="{{ path('app_offre', {'id': canditature.id}) }}">{{ canditature.label }}</a>
+                                <p>Début du casting le :  {{ canditature.offerStartDate|date('d/m/y') }}</p>
+                            </div>
+                            <div class="col-4" >
+                                <button onclick="confirm('Voulez-vous supprimer cette candidature ?')" style="border: none"><a href="{{ path('app_profile_delete', {'id': canditature.id}) }}" class="bi-trash3 text-"></a></button>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

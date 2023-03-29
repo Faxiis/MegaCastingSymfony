@@ -1,25 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OffreController!{% endblock %}
+{% block title %}Offre !{% endblock %}
 {% block body %}
     <div class="offerBg">
+        <a href=javascript:history.go(-1) class="btn btn-dark mt-3 ms-3">Retour</a>
         <div class="offerText">
             <h1>{{ offre.label }}</h1>
-            <b>Date de début :</b>
-            {{ offre.offerStartDate|date('d/m/y') }}<br>
-            <b>Date de fin :</b>
-            {{ offre.offerEndDate|date('d/m/y') }}<br>
-            <b>Localisation :</b>
-            {{ offre.localisation }}<br>
-            <b>Référence :</b>
-            {{ offre.reference }}<br>
-            <b>Date de publication :</b>
-            {{ offre.parutionDateTime|date('d/m/y') }}<br>
-            <b>Contract :</b>
-            {{ offre.contractTypes.label }}<br>
-            <b>Clients :</b>
-            {{ offre.clients.firstName }}<br>
         </div>
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-4">
+                    <b>Date de début :</b>
+                    {{ offre.offerStartDate|date('d/m/y') }}<br>
+                    <b>Date de fin :</b>
+                    {{ offre.offerEndDate|date('d/m/y') }}<br>
+                    <b>Localisation :</b>
+                    {{ offre.localisation }}<br>
+                    <b>Référence :</b>
+                    {{ offre.reference }}<br>
+                    <b>Date de publication :</b>
+                    {{ offre.parutionDateTime|date('d/m/y') }}<br>
+                    <b>Contract :</b>
+                    {{ offre.contractTypes.label }}<br>
+                    <b>Clients :</b>
+                    {{ offre.clients.firstName }}<br>
+                    <b>Activités :</b>
+                    {{ act|join(', ') }}<br>
+                    <b>Civilités :</b>
+                    {{ civ|join(', ') }}<br>
+                    {% if app.user != null %}
+                        <a href="{{ path('app_offre_apply', {'id': offre.id }) }}"><button class="btn btn-dark mt-3" onclick="return confirm('Etes-vous sur de vouloir postuler pour cette offre ?')">Postuler</button></a>
+                    {% endif %}
+                </div>
+                <div class="col-4">
+                    <b>Description :</b><br>
+                    {{ offre.description }}
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 

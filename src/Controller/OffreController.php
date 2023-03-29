@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 class OffreController extends AbstractController
 {
@@ -17,9 +20,23 @@ class OffreController extends AbstractController
     {
         $offre = $entityManager->getRepository(Offers::class)->find($id);
 
+        $activites = $offre->getActivities();
+        $nomAct = [];
+        foreach ($activites as $activite) {
+            $nomAct[] = $activite->getName();
+        }
+
+        $civilities = $offre->getCivilities();
+        $nomCiv = [];
+        foreach ($civilities as $civilitie) {
+            $nomCiv[] = $civilitie->getShortLabel();
+        }
+
 
         return $this->render('offre/index.html.twig', [
             'offre' => $offre,
+            'act' => $nomAct,
+            'civ' =>$nomCiv,
         ]);
     }
 
@@ -84,11 +101,18 @@ class OffreController extends AbstractController
         ]);
     }
 
-    #[Route('/offre/test', name: 'app_offre_test')]
-    public function search(EntityManagerInterface $entityManager): Response
+    #[Route('/offre/apply/{id}', name: 'app_offre_apply')]
+    public function apply(EntityManagerInterface $entityManager, INT $id, TokenStorageInterface $tokenStorage): Response
     {
-        $offers = $entityManager->getRepository(Offers::class)->findSearch('Batteur');
-        dd($offers);
 
+        $user = $tokenStorage->getToken()->getUser();
+
+        $offre = $entityManager->getRepository(Offers::class)->find($id);
+        $offre->addUser($user);
+        $entityManager->persist($offre);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('app_home');
     }
 }
