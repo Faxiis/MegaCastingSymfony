@@ -4,29 +4,64 @@
 
 {% block body %}
 
-        <div class="homeBg">
-            <div class="homeText">
-                <h1>Bienvenue sur le site officiel de MegaCasting !</h1>
-                <p>Vous trouverez, en bas de cette page, <br>différentes offres qui peuvent vous intéresser.</p>
-            </div>
+    <div class="homeBg">
+        <div class="homeText ">
+            <h1>Bienvenue sur le site officiel de MegaCasting !</h1>
+            <p>Vous trouverez, en bas de cette page, <br>différentes offres qui peuvent vous intéresser.</p>
         </div>
+    </div>
 
     <div class="container">
 
-
-        <div class="row-fluid  " >
+        <div class="row-fluid" >
             <form class="d-flex justify-content-end mb-5" role="search" action="{{ path("app_home_search") }}">
-                <input class="form-control me-2" style="width: 250px" type="search" placeholder="Rechercher une offre" aria-label="Search" name="query"><br>
+                <input class="form-control me-2" style="width: 250px" type="search" placehol    der="Rechercher une offre" aria-label="Search" name="query"><br>
                 <button class="btn btn-dark" type="submit">Recherche</button>
             </form>
+            <button id="filter-button" class="btn mb-3"><i class="bi-filter"></i>  Filtres</button>
+            <div class="filter " id="filter-form">
+                {{ form_start(form) }}
+                <div class="row row-cols-auto">
+                    <div class="col">
+                        <h5>Type de contrat</h5>
+                        {{ form_row(form.contract) }}
+                    </div>
+                    <div class="col">
+                        <h5>Activité</h5>
+                        {{ form_row(form.activity) }}
+                    </div>
+                    <div class="col">
+                        <h5>Domaine métier</h5>
+                        {{ form_row(form.domain) }}
+                    </div>
+                    <div class="col">
+                        <h5>Niveau métier</h5>
+                        {{ form_row(form.level) }}
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+            <!-- Script pour masquer/afficher les filtres avec animation-->
+            <script>
+                $(document).ready(function() {
+                    // Cacher les filtres au chargement
+                    $("#filter-form").hide();
 
-                <div class="row mb-5" >
-                    {% for offre in offres %}
-                        <div class="col-sm-3 mb-3 mb-sm-0 " >
-                            <div class="card text-center mb-5" >
+                    // Ajouter un bouton pour afficher/masquer les filtres avec animation
+                    $("#filter-button").click(function() {
+                        $("#filter-form").slideToggle(500);
+                    });
+                });
+            </script>
+            <div class="row mb-5" >
+
+                {% for offre in offres %}
+
+                    <div class="col-sm-3 mb-sm-0 " >
+                        <div class="card text-center mb-5">
                             <a class="" style="width: 18rem;" href="{{ path('app_offre', {'id': offre.id}) }}">
                                 <div class="card-header text-truncate">
-                                   <h5> {{ offre.label }} </h5>
+                                    <h5 class="mt-2"> {{ offre.label }} </h5>
                                 </div>
 
                                 <div class="card-body">
@@ -34,17 +69,19 @@
                                     <b class="card-text bi-geo-alt">{{ offre.localisation }}</b>
                                 </div>
                             </a>
-                                <div class="card-footer text-muted">
-                                    <p>Offre publié le : {{ offre.parutionDateTime.format('d-m-Y') }}</p>
-                                </div>
-
+                            <div class="card-footer text-muted">
+                                <p>Offre publié le : {{ offre.parutionDateTime.format('d-m-Y') }}</p>
                             </div>
+
                         </div>
-                    {% endfor %}
-                    <div class="navigation">
-                        {{ knp_pagination_render(offres) }}
                     </div>
-                </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="">
+            {{ knp_pagination_render(offres) }}
         </div>
     </div>
 {% endblock %}

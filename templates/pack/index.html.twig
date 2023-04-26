@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PackController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mt-5">Pack d'offre de casting</h1>
+
+        <div class="row text-center border rounded-4">
+            <div class="d-flex justify-content-evenly">
+                {% for pack in packs %}
+                    <div class="col pack my-3">
+                        <div class=" border-bottom p-5 border-dark">
+                            <h5>{{ pack.label }}</h5>
+                        </div>
+                        <div class="border-bottom p-5 border-dark">
+                            <p>En souscrivant à ce pack d'offres de castings, vous pourrait mettre en ligne jusqu'à
+                                <br>
+                            <h3>{{ pack.offersNumber }}
+                                <br>
+                                Offres de castings</h3>
+                            <br>
+                            </p>
+                        </div>
+                        <div class="my-4">
+                            <p>Le prix de ce pack d'offres est : <b>{{ pack.price }}€</b></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="mt-5">
+            <h3 class="mb-3">Comment obtenir un pack d'offre ?</h3>
+            <p>Pour obtenir un pack d'offre, merci de nous contacter par téléphone</p>
+        </div>
+    </div>
+{% endblock %}

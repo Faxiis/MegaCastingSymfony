@@ -56,6 +56,18 @@ class Offers
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'apply')]
     private Collection $users;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $profesionalLevel = null;
+
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $sponsor = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $status = null;
+
+
+
     public function __construct()
     {
         $this->civilities = new ArrayCollection();
@@ -256,4 +268,44 @@ class Offers
 
         return $this;
     }
+
+    public function getProfesionalLevel(): ?int
+    {
+        return $this->profesionalLevel;
+    }
+
+    public function setProfesionalLevel(?int $profesionalLevel): self
+    {
+        $this->profesionalLevel = $profesionalLevel;
+
+        return $this;
+    }
+
+    public function isSponsor(): ?bool
+    {
+        return $this->sponsor;
+    }
+
+    public function setSponsor(?bool $sponsor): self
+    {
+        $this->sponsor = $sponsor;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+
+
+
 }

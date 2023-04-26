@@ -52,20 +52,30 @@ class OffersRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-//    /**
-//     * @return Offers[] Returns an array of Offers objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('o.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Offers[] Returns an array of Offers objects
+     */
+    public function findByContractType($contrat, $activity, $level, $user): array
+    {
+        $query = $this
+            ->createQueryBuilder('o')
+            ->select('o', 'a')
+            ->join('o.activities', 'a')
+            ->where('o.contractTypes IN (:con) OR a IN (:act)')
+            ->setParameter('con', $contrat)
+            ->setParameter('act', $activity);
+
+        if($level){
+            $query = $query
+                ->orWhere('o.profesionalLevel < :lev')
+                ->setParameter('lev', $user)
+                ->orderBy('o.status ', 'DESC');
+        }
+
+        return $query->getQuery()->getResult();
+
+    }
+
 
 //    public function findOneBySomeField($value): ?Offers
 //    {

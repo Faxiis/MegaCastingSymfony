@@ -228,15 +228,20 @@ class AppFixtures extends Fixture
         $off->addActivity($activityg);
         $manager->persist($off);
 
-        for ($i = 1; $i<=500 ; $i++) {
+        $datedujour = date_create('now');
+
+        for ($i = 1; $i<=50 ; $i++) {
             $offre = new Offers();
             $offre->setLabel($faker->name());
             $offre->setDescription($faker->paragraphs(2, true));
             $offre->setReference($faker->name());
-            $offre->setParutionDateTime($faker->dateTime());
-            $offre->setOfferStartDate($faker->dateTime());
-            $offre->setOfferEndDate($faker->dateTime());
+            $offre->setParutionDateTime($faker->dateTimeBetween('-10 week'));
+            $offre->setOfferStartDate($faker->dateTimeBetween('+5 week', '+8 week'));
+            $offre->setOfferEndDate($faker->dateTimeBetween('+3 week','+5 week'));
             $offre->setLocalisation($faker->name());
+            $offre->setStatus($faker->numberBetween(1, 3));
+            $offre->setProfesionalLevel($faker->numberBetween(1, 3));
+            $offre->setSponsor($faker->boolean);
             $offre->setContractTypes($contract);
             $offre->setClients($client);
             $offre->addCivility($civilitem);

@@ -1,33 +1,46 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-black">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path('app_home') }}">MegaCasting</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav me-auto">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ path('app_home') }}">Offres</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('app_pack') }}">Packs</a>
+                </li>
             </ul>
-        </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav mb-2 mb-lg-0">
                 {% if app.user == null %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Connexion  <span class="bi-box-arrow-left"></span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion  <span class="bi-box-arrow-left"></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin.index') }}">Espace administrateur</a>
+                    </li>
                 {% endif %}
                 {% if app.user != null %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_profile') }} "><i class="bi-person" style="font-size: 20px;"></i></a>
+                        <a class="nav-link" href="{{ path('app_profile') }} ">
+                            {% if app.user.imageName != null %}
+                                <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="">
+                            {% endif %}
+                            {% if app.user.imageName == null %}
+                                <i class="bi-person-circle" style="font-size: 20px;"></i>
+                            {% endif %}
+                        </a>
                     </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi-box-arrow-right fa-6x" style="font-size: 20px;" aria-label="Déconnexion"></i></a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi-box-arrow-right fa-6x" style="font-size: 20px;" aria-label="Déconnexion"></i></a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

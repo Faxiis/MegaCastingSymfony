@@ -32,7 +32,6 @@ class OffreController extends AbstractController
             $nomCiv[] = $civilitie->getShortLabel();
         }
 
-
         return $this->render('offre/index.html.twig', [
             'offre' => $offre,
             'act' => $nomAct,

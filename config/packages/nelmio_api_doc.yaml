@@ -4,6 +4,15 @@ nelmio_api_doc:
             title: MegaCasting
             description: API de MegaCasting !
             version: 1.0.0
+        components:
+            securitySchemes:
+                ApiKeyAuth:
+                    type: apiKey
+                    in: header
+                    name: X-API-KEY
+        security:
+            -   ApiKeyAuth:
+                    - /doc/
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc) # Accepts routes under /api except /api/doc

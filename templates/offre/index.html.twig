@@ -20,6 +20,20 @@
                     {{ offre.reference }}<br>
                     <b>Date de publication :</b>
                     {{ offre.parutionDateTime|date('d/m/y') }}<br>
+                    <b>Niveau :</b>
+                    {% if offre.profesionalLevel == 1 %}Débutant{% endif %}
+                    {% if offre.profesionalLevel == 2 %}Intermédiaire{% endif %}
+                    {% if offre.profesionalLevel == 3 %}Expert{% endif %}
+                    <br>
+                    <b>Sponsor :</b>
+                    {% if offre.sponsor == 1 %}Est sponsorisé{% endif %}
+                    {% if offre.sponsor == 0 %}N'est pas sponsorisé{% endif %}
+                    <br>
+                    <b>Niveau d'urgence :</b>
+                    {% if offre.status == 3 %}Très urgent{% endif %}
+                    {% if offre.status == 2 %}Urgent{% endif %}
+                    {% if offre.status == 1 %}Non urgent{% endif %}
+                    <br>
                     <b>Contract :</b>
                     {{ offre.contractTypes.label }}<br>
                     <b>Clients :</b>

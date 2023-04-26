@@ -27,29 +27,30 @@
             {% endif %}
                 <div class="row mb-5" >
                     {% for offre in recherche %}
-                        <div class="col-sm-3 mb-3 mb-sm-0 " >
+
+                        <div class="col-sm-3 mb-sm-0 " >
                             <div class="card text-center mb-5" >
                                 <a class="" style="width: 18rem;" href="{{ path('app_offre', {'id': offre.id}) }}">
-                                    <div class="card-header ">
-                                        <h5> {{ offre.label }} </h5>
+                                    <div class="card-header text-truncate">
+                                        <h5 class="mt-2"> {{ offre.label }} </h5>
                                     </div>
 
                                     <div class="card-body">
-                                        <p class="card-title">{{ offre.description }}</p>
-                                        <p class="card-text bi-geo-alt">{{ offre.localisation }}</p>
+                                        <p class="card-title truncate">{{ offre.description }}</p>
+                                        <b class="card-text bi-geo-alt">{{ offre.localisation }}</b>
                                     </div>
                                 </a>
                                 <div class="card-footer text-muted">
                                     <p>Offre publié le : {{ offre.parutionDateTime.format('d-m-Y') }}</p>
-                                    {% if app.user != null %}
-                                        <a href=""><button class="btn btn-dark">Postuler</button></a>
-                                    {% endif %}
                                 </div>
 
                             </div>
                         </div>
                     {% endfor %}
                 </div>
+        </div>
+        <div class="">
+            {{ knp_pagination_render(recherche) }}
         </div>
     </div>
 {% endblock %}

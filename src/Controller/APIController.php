@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class APIController extends AbstractController
 {
-    #[Route('/api/offres', name: 'app_api_offre', methods: ['GET'])]
+    #[Route('/api/json', name: 'app_api_get', methods: ['GET'])]
     #[OA\Get(
         summary: 'Liste des offres de casting',
     )]
@@ -25,11 +25,28 @@ class APIController extends AbstractController
         )
     )]
     #[OA\Tag(name: 'Offres de casting')]
-    public function index(EntityManagerInterface $entityManager): JsonResponse
+    public function get(EntityManagerInterface $entityManager): JsonResponse
     {
         $offre = $entityManager->getRepository(Offers::class)->findBy([],['parutionDateTime' => 'desc']);
 
-
         return $this->json($offre);
+    }
+
+
+    #[Route('/api/json', name: 'app_api_post', methods: ['POST'])]
+    #[OA\Post(
+        summary: 'Offres de casting',
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Liste des offres de casting',
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(ref: new Model(type: Offers::class))
+        )
+    )]
+    #[OA\Tag(name: 'Offres de casting')]
+    public function post(EntityManagerInterface $entityManager): JsonResponse
+    {
     }
 }
